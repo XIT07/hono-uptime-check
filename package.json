@@ -1,5 +1,5 @@
 {
-  "name": "hono-health-api",
+  "name": "Hono Uptime Check",
   "version": "1.0.0",
   "description": "Universal Hono.js API for domain health checking - runs on Node.js and Cloudflare Workers",
   "type": "module",
