@@ -1,0 +1,36 @@
+{
+  "name": "hono-health-api",
+  "version": "1.0.0",
+  "description": "Universal Hono.js API for domain health checking - runs on Node.js and Cloudflare Workers",
+  "type": "module",
+  "scripts": {
+    "dev:node": "tsx watch --env-file=.env src/index.node.ts",
+    "start:node": "tsx --env-file=.env src/index.node.ts",
+    "build:node": "tsc -p tsconfig.node.json",
+    "dev:worker": "wrangler dev",
+    "deploy:worker": "wrangler deploy",
+    "db:generate": "drizzle-kit generate:sqlite",
+    "db:migrate:node": "tsx src/db/migrate.node.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.9",
+    "better-sqlite3": "^9.4.3",
+    "drizzle-orm": "^0.30.0",
+    "hono": "^4.0.0",
+    "hono-rate-limiter": "^0.5.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240208.0",
+    "@types/better-sqlite3": "^7.6.9",
+    "@types/node": "^20.11.0",
+    "drizzle-kit": "^0.20.14",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^4.63.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,33 @@
+name = "hono-health-api"
+main = "src/index.worker.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# Environment variables (use wrangler secret put for sensitive values)
+[vars]
+API_TOKEN = "your-secure-api-token-here"
+MAX_TARGETS_PER_REQUEST = "10"
+RATE_LIMIT_WINDOW_MS = "60000"
+RATE_LIMIT_MAX_REQUESTS = "100"
+TCP_TIMEOUT_MS = "5000"
+HTTP_TIMEOUT_MS = "10000"
+HTTP_MAX_REDIRECTS = "3"
+ALLOW_PRIVATE_IPS = "false"
+
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "domain-health"
+database_id = "your-database-id-here"
+
+# For local development with wrangler dev
+[env.local]
+[[env.local.d1_databases]]
+binding = "DB"
+database_name = "domain-health-local"
+database_id = "local-database-id"
+
+# Rate limiting uses Workers KV (optional - falls back to in-memory)
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "your-kv-namespace-id-here"

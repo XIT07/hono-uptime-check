@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DB_URL=file:./data/app.db
+      - API_TOKEN=${API_TOKEN:-change-me-in-production}
+      - MAX_TARGETS_PER_REQUEST=10
+      - RATE_LIMIT_WINDOW_MS=60000
+      - RATE_LIMIT_MAX_REQUESTS=100
+      - TCP_TIMEOUT_MS=5000
+      - HTTP_TIMEOUT_MS=10000
+      - HTTP_MAX_REDIRECTS=3
+      - ALLOW_PRIVATE_IPS=false
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/v1/ping"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
